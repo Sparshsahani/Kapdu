@@ -9,6 +9,7 @@ import Cart from './pages/Cart.jsx'
 import ShopingCart from './pages/ShopingCart.jsx'
 import Contact from './pages/Contact.jsx'
 
+
 const router = createBrowserRouter([
   {
     path:'/',
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
     path:'/Contact',
     element:<Contact/>
 
+  },
+  {
+    path:'/allproducts',
+    element:<Product/>
   }
 ])
 

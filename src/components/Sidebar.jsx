@@ -2,15 +2,24 @@ import React, { useContext, useState } from "react";
 import { IoMdSearch } from "react-icons/io";
 import { MdShoppingCart } from "react-icons/md";
 import { FaRegHeart } from "react-icons/fa";
-import { RxCross1 } from "react-icons/rx";
-// import { GiHamburgerMenu } from "react-icons/gi";
+import { RxCross2 } from "react-icons/rx";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { NavLink } from "react-router-dom";
 import { productContext } from "../context/productContext";
+import { RxCross1 } from "react-icons/rx";
 import { Link } from "react-router-dom";
 
-function Navbar() {
-  const { invoice,cart } = useContext(productContext);
+export default function Sidebar() {
+  const { invoice, cart, removeCart } = useContext(productContext);
+  const [hide, sethide] = useState(false);
   const [cartShow, setcartShow] = useState(false);
+  const toggleButtonOpen = () => {
+    sethide(true);
+  };
+  const toggleButtonClose = () => {
+    sethide(false);
+  };
+
   const cartHandlerOpen = () => {
     setcartShow(true);
   };
@@ -18,20 +27,49 @@ function Navbar() {
     setcartShow(false);
   };
   return (
-    <header className="p-4 z-10 max-lg:w-full lg:w-full max-xl:hidden">
+    <header className="p-4 z-10 max-lg:w-full lg:w-full xl:hidden">
       <nav className="min-w-0 ">
         <div className="flex flex-row justify-between mx-auto lg:w-4/5">
           <div className="flex flex-row justify-between items-center">
-            <div className="lg:p-2">
+            <div className="lg:p-2 relative">
               <h1 className="max-sm:text-lg md:text-xl lg:font-semibold lg:text-xl ">
-                <span className="max-sm:font-medium md:text-2xl md:font-bold lg:font-bold lg:text-lg">
-                  Kapdu
+                <span className="max-sm:font-semibold md:text-2xl md:font-bold lg:font-bold lg:text-lg">
+                  KAPDU
                 </span>{" "}
-                Store
+                STORE
               </h1>
+              <div
+                onClick={toggleButtonOpen}
+                className={`absolute z-10 w-screen top-[160%] left-[-16px] flex flex-col justify-center max-sm:justify-center bg-[#212121] text-white/60 p-3 ${
+                  hide ? "block" : "hidden"
+                }`}
+              >
+                <p className="text-[0.7rem] mx-auto">
+                  Free shipping for standard order over $100
+                </p>
+                <hr className="my-1 border-white/25" />
+                <div className="flex flex-row justify-center">
+                  <span className="text-[0.7rem] hover:text-[#717FE0] duration-150 border-x-[1px] px-3 border-white/50">
+                    Help & FAQs
+                  </span>
+                  <span className="text-[0.7rem] hover:text-[#717FE0] duration-150 border-r-[1px] px-3 border-white/50">
+                    My Account
+                  </span>
+                  <span className="text-[0.7rem] hover:text-[#717FE0] duration-150 border-r-[1px] px-3 border-white/50">
+                    EN
+                  </span>
+                  <span className="text-[0.7rem] hover:text-[#717FE0] duration-150 border-r-[1px] px-3 border-white/50">
+                    USD
+                  </span>
+                </div>
+              </div>
             </div>
-
-            <ul className="flex flex-row mx-4 p-3 max-lg:hidden ">
+            <ul
+              onClick={toggleButtonOpen}
+              className={`flex flex-col p-3 z-10 absolute bg-[#717FE0] text-white w-full top-[18%] left-0  ${
+                hide ? "block" : "hidden"
+              }`}
+            >
               <li className="mx-2 p-1">
                 <a
                   href="/"
@@ -82,14 +120,15 @@ function Navbar() {
               </li>
             </ul>
           </div>
-          <div className="flex flex-row items-center relative">
+          <div className="flex flex-row items-center ">
             <IoMdSearch className=" max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl" />
-            <div className="text-3xl">
-              <NavLink to={""} >
-                <MdShoppingCart onClick={cartHandlerOpen} className="z-30 max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl" />
-                <div>
-                <div
-                className={`fixed z-10 w-[80%] xl:w-[20%] top-[0px] right-[0px] bg-white h-screen shadow-2xl ${
+            <div className="text-3xl ">
+              <MdShoppingCart 
+                onClick={cartHandlerOpen}
+                className={`max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl animate-ping`}
+              />
+              <div
+                className={`fixed z-10 xl:w-[80%] md:w-[40%] lg:w-[30%] top-[0px] right-[0px] bg-white h-screen shadow-2xl ${
                   cartShow ? "block" : "hidden"
                 }`}
               >
@@ -102,7 +141,6 @@ function Navbar() {
                         className={`text-3xl`}
                       />
                     </div>
-                    <div className="border">
                     {cart.map((items) => {
                       return (
                         <div
@@ -134,13 +172,12 @@ function Navbar() {
                               </button>
                             </div>
                           </div>
+                          <div>
+                            Total:{invoice.subTotal}
+                          </div>
                         </div>
                       );
                     })}
-                    </div>
-                          <div className="absolute top-[85%] left-[10%]">
-                            Total:{invoice.subTotal}
-                          </div>
                   </div>
                 ) : (
                   <div>
@@ -162,21 +199,28 @@ function Navbar() {
                   </div>
                 )}
               </div>
+              {invoice?.count > 0 && (
+                <div className="absolute top-2 lg:top-[2%] right-[30%] max-sm:right-[29%] md:right-[15%] lg:right-[16%] w-4 h-4 bg-blue-400 text-white text-sm flex items-center justify-center">
+                  {invoice?.count}
                 </div>
-                {invoice?.count > 0 && (
-                  <div className="absolute z-20 top-2 right-[36%] max-sm:right-[20%] w-4 h-4 bg-blue-400 text-white text-lg flex items-center justify-center">
-                    {invoice?.count}
-                  </div>
-                )}
-              </NavLink>
+              )}
             </div>
             <FaRegHeart className=" max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl" />
-            {/* <GiHamburgerMenu className=" max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl lg:hidden" /> */}
+            <GiHamburgerMenu
+              onClick={toggleButtonOpen}
+              className={`max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl lg:hidden ${
+                hide ? "hidden" : "block"
+              }`}
+            />
+            <RxCross2
+              onClick={toggleButtonClose}
+              className={` max-sm:mx-2 md:mx-3 lg:mx-3 focus:text-blue-400 hover:text-blue-400 duration-200 text-2xl lg:hidden ${
+                hide ? "block" : "hidden"
+              }`}
+            />
           </div>
         </div>
       </nav>
     </header>
   );
 }
-
-export default Navbar;

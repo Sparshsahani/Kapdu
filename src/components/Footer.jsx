@@ -6,10 +6,10 @@ import { FaPinterestP } from "react-icons/fa";
 export default function Footer() {
   return (
     <>
-      <section className="bg-black/85  w-full md:h-[680px] lg:h-[400px] text-white">
+      <section className="bg-black/85  w-full md:h-[680px] lg:h-[600px] xl:h-[380px] text-white">
         <div className="w-full">
           <div className="max-sm:p-4 w-4/5 xl:mx-auto flex flex-row flex-wrap justify-between p-5 md:w-full">
-            <div className="w-80">
+            <div className="xl:w-80 lg:w-[40%]">
               <h3 className="max-sm:text-sm max-sm:m font-bold text-xl py-2 my-8">
                 CATEGORIES
               </h3>
@@ -20,7 +20,7 @@ export default function Footer() {
                 <li>Watches</li>
               </ul>
             </div>
-            <div className="w-80">
+            <div className="xl:w-80 lg:w-[40%]">
               <h3 className="max-sm:text-sm max-sm:m font-bold text-xl py-2 my-8">
                 HELP
               </h3>
@@ -31,7 +31,7 @@ export default function Footer() {
                 <li>FAQs</li>
               </ul>
             </div>
-            <div className="w-80 ">
+            <div className="xl:w-80 lg:w-[40%]">
               <h3 className="max-sm:text-sm max-sm:m font-bold text-xl py-2 my-8">
                 GET IN TOUCH
               </h3>
@@ -51,7 +51,7 @@ export default function Footer() {
                 
               </div>
             </div>
-            <div className="flex flex-col flex-wrap w-80">
+            <div className="flex flex-col flex-wrap xl:w-80 lg:w-[40%]">
               <h3 className="font-bold text-xl py-2 my-8 max-sm:text-[1.2rem]">NEWS LATTER</h3>
               <input
                 className="bg-transparent border-none focus:outline-none"

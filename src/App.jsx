@@ -6,6 +6,7 @@ import { Outlet , useParams} from "react-router-dom"
 import {productContext} from './context/productContext'
 import { useContext,useEffect } from "react";
 import Footer from "./components/Footer"
+import Sidebar from "./components/Sidebar"
 
 
 
@@ -18,6 +19,7 @@ function App() {
   return (
     <>
       <Navbar/>
+      <Sidebar/>
       <Home/>
       <Banner/>
       <Product_Overview/>

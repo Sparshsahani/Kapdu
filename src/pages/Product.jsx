@@ -1,17 +1,23 @@
 import React, { useContext } from "react";
 import { productContext } from "../context/productContext";
+import { useNavigate } from "react-router-dom";
 // import Swal from 'sweetalert2'
 
 export default function Product() {
   const { product, addCart } = useContext(productContext);
+  const navigator = useNavigate();
   // const MySwal = withReactContent(Swal);
   // console.log(product);
   
   
   // console.log(product);
 
+  const abc = () => {
+   navigator('/Cart')
+  }
   return (
     <>
+    
       <section className="max-sm:mt-4 max-sm:p-4 xl-mt-10 xl:p-10">
         <div className="flex flex-row flex-wrap justify-center items-center max-sm:gap-x-28 md:gap-x-16 md:gap-y-8 md:mx-5 md:justify-start lg:justify-start lg:gap-20 xl:mx-[8rem] xl:p-5">
           {product.map((pro) => {
@@ -24,7 +30,10 @@ export default function Product() {
                     className="object-contain duration-700 hover:scale-110 "
                     src={pro.image}
                     alt=""/>
-                  <button onClick={() => addCart(pro)} className="absolute bottom-[5%] left-[25%] max-sm:text-sm max-sm:font-normal max-sm:px-6 max-sm:py-2 md:left-[20%] md:text-sm md:font-normal text-lg font-semibold hover:bg-black hover:text-white rounded-full bg-white px-6 py-2 xl:left-[25%]">
+                  <button onClick={() =>{
+                    addCart(pro)
+                    abc()
+                  }} className="absolute bottom-[5%] left-[25%] max-sm:text-sm max-sm:font-normal max-sm:px-6 max-sm:py-2 md:left-[20%] md:text-sm md:font-normal text-lg font-semibold hover:bg-black hover:text-white rounded-full bg-white px-6 py-2 xl:left-[25%]">
                     Add to Cart
                   </button>
                 </div>
